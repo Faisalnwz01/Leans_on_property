@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-navbar twitter>
+    <button menuToggle *ngIf="!selectedViolation">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title ><span light>Violation Details</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="selectedViolation" class="selected">
+    <ion-list>
+      <ion-list-header>
+        <ion-title class="subheader" margin-top>Property Information</ion-title>
+      </ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col width-33>
+            <h3 class="propertyFont">Bin</h3>
+            <h2>{{selectedViolation.bin}}</h2>
+          </ion-col>
+          <ion-col width-33>
+            <h3 class="propertyFont">Block</h3>
+            <h2>{{selectedViolation.block}}</h2>
+          </ion-col>
+          <ion-col width-33>
+            <h3 class="propertyFont">Lot</h3>
+            <h2>{{selectedViolation.lot}}</h2>
+          </ion-col>
+        </ion-row >
+      </ion-item>
+
+      <ion-item>
+        <ion-row no-margin>
+          <ion-col width-100>
+            <h3 class="propertyFont">Address</h3>
+            <h2>{{selectedViolation.house_number + ' ' + selectedViolation.street}}</h2>
+          </ion-col>
+        </ion-row >
+      </ion-item>
+    </ion-list>
+
+    <ion-list padding-top margin-top>
+      <ion-list-header>
+        <ion-title class="subheader" >Violation Information</ion-title>
+      </ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col width-33>
+            <h3 class="propertyFont">Violation Status</h3>
+            <h2 [class]="isActive(selectedViolation.violation_category)">{{isActive(selectedViolation.violation_category)}}</h2>
+          </ion-col>
+          <ion-col width-50>
+            <h3 class="propertyFont">Violation Type Code:</h3>
+            <h2>{{selectedViolation.violation_type_code}}</h2>
+          </ion-col>
+        </ion-row >
+      </ion-item>
+      <ion-item>
+        <ion-row>
+          <ion-col width-33>
+            <h3 class="propertyFont">Violation #:</h3>
+            <h2>{{selectedViolation.violation_number}}</h2>
+          </ion-col>
+          <ion-col width-50>
+            <h3 class="propertyFont">Catergory</h3>
+            <h2>{{selectedViolation.violation_category}}</h2>
+          </ion-col>
+        </ion-row >
+      </ion-item>
+      <ion-item>
+        <ion-row>
+          <ion-col width-33>
+            <h3 class="propertyFont">Issue Date</h3>
+            <h2>{{selectedViolation.issue_date | date}}</h2>
+
+          </ion-col>
+          <ion-col width-50>
+            <h3 class="propertyFont">Type:</h3>
+            <h2>{{selectedViolation.violation_type}}</h2>
+          </ion-col>
+        </ion-row >
+      </ion-item>
+      <ion-item>
+        <ion-row no-margin>
+          <ion-col width-100>
+            <h3 class="propertyFont">Violation Description</h3>
+            <p text-wrap>{{selectedViolation.description}}</p>
+          </ion-col>
+        </ion-row >
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

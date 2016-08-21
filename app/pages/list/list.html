@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar twitter>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title ><span light>Violations Lookup</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-spinner class="spinner" *ngIf="showSpinner"></ion-spinner>
+  <ion-list inset>
+    <ion-item class="padding-left">
+      <ion-label>House #</ion-label>
+      <ion-input [(ngModel)]="house_number" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Street</ion-label>
+      <ion-input padding-left [(ngModel)]="street" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item class="no-padding no-margin">
+      <ion-label>Borough</ion-label>
+      <ion-select [(ngModel)]="boro">
+        <ion-option value="2">Bronx</ion-option>
+        <ion-option value="3">Brooklyn/Kings</ion-option>
+        <ion-option value="1">Manhattan/New York</ion-option>
+        <ion-option value="4">Queens/Kings</ion-option>
+        <ion-option value="5">Staten Island/Richmond</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-buttons end>
+      <button outline round class='right' (click)="lookup()">
+        <ion-icon name="search" item-left></ion-icon>
+        Search</button>
+    </ion-buttons>
+  </ion-list>
+  <ion-list>
+    <button ion-item *ngFor="let v of violations" (click)="itemTapped($event, v)">
+
+      <ion-row>
+        <ion-col width-20>
+          <h3 class="propertyFont">Status</h3>
+          <h2 [class]="isActive(v.violation_category)">{{isActive(v.violation_category)}}</h2>
+        </ion-col>
+        <ion-col>
+          <h3 class="propertyFont">Violation Type</h3>
+          <h2>{{v.violation_type}}</h2>
+        </ion-col>
+      </ion-row >
+    </button>
+  </ion-list>
+
+
+</ion-content>

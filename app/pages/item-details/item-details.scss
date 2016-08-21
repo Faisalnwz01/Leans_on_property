@@ -1,0 +1,23 @@
+div.selection {
+  font-size: 22px;
+  display: block;
+  text-align: center;
+  padding-top: 5%;
+}
+.propertyFont {
+  color: color($colors, lightGray, base);;
+}
+.selected {
+  ion-label {
+    margin: 0 !important;
+  }
+  p {
+    white-space: normal !important;
+  }
+}
+.Active {
+  color: color($colors, danger, base);
+}
+.Closed {
+  color: color($colors, secondary, base);
+}
