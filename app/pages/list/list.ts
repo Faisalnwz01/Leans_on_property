@@ -3,6 +3,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import { Storage, LocalStorage } from 'ionic-angular';
 import {ItemDetailsPage} from '../item-details/item-details';
 import {Data} from '../../providers/data/data';
+import {Database} from '../../providers/database/database';
 
 
 
@@ -20,7 +21,10 @@ export class ListPage {
   boro: number = 2;
   showSpinner: Boolean = false;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, private _data: Data) {
+  constructor(public navCtrl: NavController,
+    navParams: NavParams,
+    private _data: Data,
+    private _database: Database) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
     this.local = new Storage(LocalStorage);
@@ -30,6 +34,7 @@ export class ListPage {
       .then(data => {
         this.showSpinner = false;
         this.violations = data;
+        this._database.add(data[0])
         console.log(data);
       })
   }
@@ -41,8 +46,7 @@ export class ListPage {
       .then(data => {
         this.showSpinner = false;
         this.violations = data;
-        this.local.set(this.house_number + ' ' + this.street + ' ' + this.boro, JSON.stringify(data));
-        console.log(data);
+        this._database.add(data[0])
       })
   }
 
