@@ -21,6 +21,7 @@ export class Database {
     this.getAll()
       .then(allSavedEnteries => {
         if (_.where(allSavedEnteries, { number: property.number, isn_dob_bis_viol: property.isn_dob_bis_viol }).length === 0) {
+          property.Date = new Date();
           return this._db.post(property);
         } else {
           return { error: 'already saved to db' };

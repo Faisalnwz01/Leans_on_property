@@ -14,7 +14,7 @@ import {Database} from '../../providers/database/database';
 })
 export class ListPage {
   private local: any;
-  selectedItem: any;
+  selectedProperty: any;
   violations: any;
   house_number: number;
   street: string = '';
@@ -26,17 +26,10 @@ export class ListPage {
     private _data: Data,
     private _database: Database) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+    this.violations = navParams.get('item');
     this.local = new Storage(LocalStorage);
   }
   ngOnInit(): void {
-    this._data.getDobViolations(430, 'EAST 149 STREET', this.boro)
-      .then(data => {
-        this.showSpinner = false;
-        this.violations = data;
-        this._database.add(data[0])
-        console.log(data);
-      })
   }
 
   lookup(): void {

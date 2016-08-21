@@ -33,8 +33,8 @@ class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'My First List', component: ListPage },
-      { title: 'Hello Ionic', component: HelloIonicPage }
+      { title: 'Lookup Properties', component: ListPage },
+      // { title: 'Hello Ionic', component: HelloIonicPage }
     ];
   }
 
@@ -44,11 +44,25 @@ class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       this._database.getAll()
-        .then(p => {
+        .then((p: Object) => {
           this.properties = _.groupBy(p, prop => { return prop.house_number + ' ' + prop.street });
           console.log(this.properties)
         })
     });
+  }
+
+  propertiesTapped(item) {
+    this.nav.setRoot(ListPage, {
+      item: item
+    });
+  }
+
+  clearDb(): void {
+    this._database.getAll()
+      .then(allViolations => {
+        _.each(allViolations, dbEntry => this._database.delete(dbEntry));
+        this.properties = {};
+      })
   }
 
   openPage(page) {

@@ -1,20 +1,24 @@
 <ion-menu [content]="content">
 
   <ion-toolbar>
-    <ion-title>Pages</ion-title>
+    <ion-title>Previous Searches</ion-title>
   </ion-toolbar>
 
   <ion-content>
-    <ion-list>
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+    <ion-list *ngIf="properties">
+      <button ion-item  *ngFor='let p of properties | keys:"key":true' (click)="propertiesTapped(p)">
+        {{p.k}}
       </button>
     </ion-list>
-    <!-- <ion-list>
-      <div ion-item  *ngFor='#p of properties | keys'>
-        {{p}}
-      </div>
-    </ion-list> -->
+    <p *ngIf="!properties">
+      As you search the history will appear here!
+    </p>
+
+    <ion-buttons end>
+      <button outline round class='right' (click)="clearDb()">
+        <ion-icon name="cross" item-left></ion-icon>
+        Clear All</button>
+    </ion-buttons>
   </ion-content>
 
 </ion-menu>

@@ -14,18 +14,23 @@ export class Keys {
   /*
     itterate over objects
    */
-   transform(value: any, args?: any[]): any[] {
-          // create instance vars to store keys and final output
-          let keyArr: any[] = Object.keys(value),
-              dataArr = [];
+  transform(value: any, args?: any[]): Object[] {
+    if (!value) return;
+    let keyArr: any[] = Object.keys(value),
+      dataArr = [],
+      keyName = args[0];
 
-          // loop through the object,
-          // pushing values to the return array
-          keyArr.forEach((key: any) => {
-              dataArr.push(value[key]);
-          });
+    keyArr.forEach((key: any) => {
+      value[key][keyName] = key;
+      dataArr.push(value[key])
+    });
 
-          // return the resulting array
-          return dataArr;
-      }
+    if (args[1]) {
+      dataArr.sort((a: Object, b: Object): number => {
+        return a[keyName] > b[keyName] ? 1 : -1;
+      });
+    }
+
+    return dataArr;
+  }
 }
