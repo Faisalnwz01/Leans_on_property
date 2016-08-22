@@ -36,9 +36,11 @@ End with an example of getting some data out of the system or using it for a lit
 NA
 
 
-## Deployment
+## Development
 
-Add additional notes about how to deploy this on a live system
+Typescript was used to write this app. If you wish to Develop/contribute this project take a look at the app folder. This is where all the source code resides. Project structure is broken down by components, Providers, Pipes in their respective folders. Used John Papa's angular 2 style guide to write most of the code.
+
+In order to serve the app, RUN `Ionic Serve`
 
 ## Built With
 
