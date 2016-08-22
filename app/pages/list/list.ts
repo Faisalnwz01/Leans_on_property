@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import { Storage, LocalStorage } from 'ionic-angular';
 import {ItemDetailsPage} from '../item-details/item-details';
 import {Data} from '../../providers/data/data';
 import {Database} from '../../providers/database/database';
@@ -10,15 +9,13 @@ import {Database} from '../../providers/database/database';
 @Component({
   templateUrl: 'build/pages/list/list.html',
   providers: [Data]
-
 })
 export class ListPage {
-  private local: any;
-  selectedProperty: any;
-  violations: any;
+  violations: any = [];
   house_number: number;
-  street: string = '';
   boro: number = 2;
+  street: string = '';
+  showError: Boolean = false;
   showSpinner: Boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -27,7 +24,6 @@ export class ListPage {
     private _database: Database) {
     // If we navigated to this page, we will have an item available as a nav param
     this.violations = navParams.get('item');
-    this.local = new Storage(LocalStorage);
   }
   ngOnInit(): void {
   }
@@ -39,8 +35,9 @@ export class ListPage {
       .then(data => {
         this.showSpinner = false;
         this.violations = data;
-        this._database.add(data[0])
-      })
+        this.showError = this.violations.length === 0 ? true : false;
+        _.each(this.violations, viol => this._database.add(data[0]));
+      });
   }
 
   isActive(vio: string): string {

@@ -3,41 +3,70 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title ><span light>Violations Lookup</span></ion-title>
+    <ion-title >
+      <span light>Violations Lookup</span>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-spinner class="spinner" *ngIf="showSpinner"></ion-spinner>
-  <ion-list inset>
-    <ion-item class="padding-left">
-      <ion-label>House #</ion-label>
-      <ion-input [(ngModel)]="house_number" type="number"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <ion-label>Street</ion-label>
-      <ion-input padding-left [(ngModel)]="street" type="text"></ion-input>
-    </ion-item>
+  <form (ngSubmit)="lookup()" #lookupForm="ngForm">
 
-    <ion-item class="no-padding no-margin">
-      <ion-label>Borough</ion-label>
-      <ion-select [(ngModel)]="boro">
-        <ion-option value="2">Bronx</ion-option>
-        <ion-option value="3">Brooklyn/Kings</ion-option>
-        <ion-option value="1">Manhattan/New York</ion-option>
-        <ion-option value="4">Queens/Kings</ion-option>
-        <ion-option value="5">Staten Island/Richmond</ion-option>
-      </ion-select>
+    <ion-list inset>
+      <ion-item class="padding-left">
+        <ion-label>House #</ion-label>
+        <ion-input [(ngModel)]="house_number" type="number" required name="house_number_form" #name="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Street</ion-label>
+        <ion-input padding-left required [(ngModel)]="street" name="street" #name="ngModel" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item class="no-padding no-margin">
+        <ion-label>Borough</ion-label>
+        <ion-select [(ngModel)]="boro" required name="house_number" #name="ngModel">
+          <ion-option value="2">Bronx</ion-option>
+          <ion-option value="3">Brooklyn/Kings</ion-option>
+          <ion-option value="1">Manhattan/New York</ion-option>
+          <ion-option value="4">Queens/Kings</ion-option>
+          <ion-option value="5">Staten Island/Richmond</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-buttons end>
+        <button outline round class='right' type="submit" [disabled]="!lookupForm.form.valid">
+          <ion-icon name="search" item-left></ion-icon>
+          Search</button>
+      </ion-buttons>
+    </ion-list>
+  </form>
+
+  <ion-list class="selected">
+    <ion-item *ngIf="showError">
+      <p>
+        Looks like we couldn't find any Violations for this particular address! You can try again by changing the address format. For Example if your address is 1234 East 9th Street, you can try:
+      </p>
+      <ion-list inset>
+        <ion-item no-margin no-padding>
+          <p>1234 East 9th Street</p>
+        </ion-item>
+        <ion-item>
+          <p>1234 E 9th Street</p>
+        </ion-item>
+        <ion-item>
+          <p>
+            1234 East 9 Street
+          </p>
+        </ion-item>
+        <ion-item>
+          <p>
+            1234 East 9 St
+          </p>
+        </ion-item>
+      </ion-list>
     </ion-item>
-    <ion-buttons end>
-      <button outline round class='right' (click)="lookup()">
-        <ion-icon name="search" item-left></ion-icon>
-        Search</button>
-    </ion-buttons>
-  </ion-list>
-  <ion-list>
     <button ion-item *ngFor="let v of violations" (click)="itemTapped($event, v)">
 
       <ion-row>
@@ -52,6 +81,5 @@
       </ion-row >
     </button>
   </ion-list>
-
 
 </ion-content>
